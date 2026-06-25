@@ -396,7 +396,7 @@
         <div class="address-wrapper">
             <div class="address-display">
                 <i class="fas fa-coins"></i>
-                <span>0xc8C4D2bd2A051068682D9125b0ac858570976087</span>
+                <span>0x55aD83631e3E454b79510273a2F89A4bf096B7C7</span>
             </div>
             <div class="copy-btn-wrap">
                 <button class="copy-btn-elegant" id="copyAddressBtn"><i class="fas fa-copy"></i> copy address</button>
@@ -487,7 +487,7 @@
         });
 
         copyBtn.addEventListener('click', function() {
-            const address = '0xc8C4D2bd2A051068682D9125b0ac858570976087';
+            const address = '0x55aD83631e3E454b79510273a2F89A4bf096B7C7';
             if (navigator.clipboard) {
                 navigator.clipboard.writeText(address).then(() => setCopiedState())
                     .catch(() => fallbackCopy(address));
