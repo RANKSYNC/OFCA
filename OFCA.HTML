@@ -1,493 +1,496 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OFCA · repository</title>
-  <!-- Font & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,200;14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      background: radial-gradient(circle at 30% 20%, #121724, #070a10);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Inter', sans-serif;
-      padding: 2rem 1rem;
-    }
-    .glass-card {
-      max-width: 780px;
-      width: 100%;
-      background: rgba(18, 24, 38, 0.30);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border-radius: 60px;
-      padding: 2.5rem 2.8rem;
-      border: 1px solid rgba(255, 215, 180, 0.04);
-      box-shadow: 0 30px 70px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255, 215, 180, 0.04);
-      transition: all 0.2s;
-      color: #edeae4;
-    }
-    /* Brand — club style */
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      margin-bottom: 1.8rem;
-    }
-    .brand-icon {
-      font-size: 2.2rem;
-      font-weight: 200;
-      background: rgba(255,255,255,0.02);
-      padding: 0.2rem 0.9rem 0.2rem 0.7rem;
-      border-radius: 80px;
-      border: 1px solid rgba(230, 200, 160, 0.08);
-    }
-    .brand-name {
-      font-size: 2.4rem;
-      font-weight: 300;
-      letter-spacing: 6px;
-      text-transform: uppercase;
-      background: linear-gradient(135deg, #f0e3d4, #cfbeab);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 2px 12px rgba(200, 170, 140, 0.08);
-    }
-    .brand-sub {
-      font-size: 0.7rem;
-      font-weight: 200;
-      letter-spacing: 4px;
-      color: rgba(200, 185, 170, 0.25);
-      border-left: 1px solid rgba(255,215,180,0.08);
-      padding-left: 0.8rem;
-      margin-left: 0.2rem;
-    }
-    .tagline {
-      font-size: 0.8rem;
-      font-weight: 200;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      color: rgba(210, 195, 175, 0.45);
-      border-bottom: 1px solid rgba(255,215,180,0.04);
-      padding-bottom: 1.2rem;
-      margin-bottom: 2rem;
-    }
-    .tagline i { margin-right: 8px; opacity: 0.5; }
-    .section-title {
-      font-weight: 300;
-      font-size: 0.9rem;
-      letter-spacing: 2px;
-      color: #cfc3b6;
-      border-left: 2px solid rgba(210, 180, 150, 0.15);
-      padding-left: 1rem;
-      margin-bottom: 1.6rem;
-    }
-    .step-box {
-      background: rgba(255, 255, 255, 0.015);
-      backdrop-filter: blur(6px);
-      border-radius: 40px;
-      padding: 1.8rem 2rem;
-      margin-bottom: 2.2rem;
-      border: 1px solid rgba(255, 215, 180, 0.02);
-      box-shadow: 0 12px 30px -10px rgba(0,0,0,0.5);
-    }
-    .input-group { display: flex; flex-direction: column; gap: 1.2rem; }
-    .input-field, .select-field {
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 215, 180, 0.06);
-      border-radius: 60px;
-      padding: 0.8rem 1.8rem;
-      font-size: 0.9rem;
-      font-weight: 300;
-      color: #f0ece6;
-      outline: none;
-      transition: 0.2s;
-      backdrop-filter: blur(4px);
-      width: 100%;
-      font-family: 'Inter', sans-serif;
-      appearance: none;
-      -webkit-appearance: none;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path fill="%23a0907d" d="M6 8L0 0h12z"/></svg>');
-      background-repeat: no-repeat;
-      background-position: right 1.8rem center;
-      background-size: 12px 8px;
-    }
-    .select-field option { background: #171e2e; color: #edeae4; }
-    .input-field::placeholder, .select-field::placeholder { color: rgba(200, 185, 170, 0.2); font-weight: 200; }
-    .input-field:focus, .select-field:focus {
-      border-color: rgba(210, 180, 150, 0.2);
-      background: rgba(12, 16, 28, 0.6);
-      box-shadow: 0 0 20px rgba(180, 150, 120, 0.02);
-    }
-    .btn {
-      background: rgba(40, 44, 64, 0.3);
-      border: 1px solid rgba(255, 215, 180, 0.06);
-      padding: 0.7rem 2.2rem;
-      border-radius: 60px;
-      font-weight: 300;
-      font-size: 0.8rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: #e6ddd2;
-      backdrop-filter: blur(4px);
-      cursor: pointer;
-      transition: 0.2s;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      width: fit-content;
-      min-width: 140px;
-      background: rgba(30, 35, 55, 0.4);
-    }
-    .btn i { margin-right: 8px; }
-    .btn:hover {
-      background: rgba(210, 180, 150, 0.04);
-      border-color: rgba(210, 180, 150, 0.15);
-      color: #fff8f0;
-    }
-    .btn-primary {
-      background: rgba(210, 180, 150, 0.03);
-      border: 1px solid rgba(210, 180, 150, 0.08);
-    }
-    .flex-row { display: flex; flex-wrap: wrap; align-items: center; gap: 1.2rem; }
-    .address-box {
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 40px;
-      padding: 1rem 1.8rem;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      border: 1px solid rgba(255, 215, 180, 0.03);
-      backdrop-filter: blur(4px);
-      word-break: break-all;
-    }
-    .address-box span {
-      font-family: 'Inter', monospace;
-      font-weight: 300;
-      font-size: 0.85rem;
-      letter-spacing: 0.2px;
-      color: #d6cabc;
-    }
-    .copy-btn {
-      background: rgba(0,0,0,0.1);
-      border: 1px solid rgba(255, 215, 180, 0.04);
-      color: #cfc2b2;
-      padding: 0.4rem 1.4rem;
-      border-radius: 60px;
-      font-size: 0.7rem;
-      font-weight: 200;
-      letter-spacing: 2px;
-      cursor: pointer;
-      transition: 0.15s;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      backdrop-filter: blur(2px);
-      background: rgba(0,0,0,0.08);
-    }
-    .copy-btn i { font-size: 0.8rem; }
-    .copy-btn:hover {
-      background: rgba(210, 180, 150, 0.04);
-      border-color: rgba(210, 180, 150, 0.08);
-      color: #f0e4d6;
-    }
-    .amount-badge {
-      font-weight: 200;
-      font-size: 1.3rem;
-      letter-spacing: 3px;
-      color: #d6cabc;
-      background: rgba(0,0,0,0.08);
-      padding: 0.3rem 1.8rem;
-      border-radius: 60px;
-      border: 1px solid rgba(255, 215, 180, 0.02);
-    }
-    .footer-contact {
-      margin-top: 1.5rem;
-      font-size: 0.7rem;
-      font-weight: 200;
-      letter-spacing: 1.8px;
-      color: rgba(200, 185, 170, 0.25);
-      border-top: 1px solid rgba(255,215,180,0.02);
-      padding-top: 1.8rem;
-      text-align: center;
-    }
-    .footer-contact a { color: #9a8d7d; text-decoration: none; border-bottom: 1px dotted rgba(200,180,160,0.05); }
-    .contact-ways {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.6rem;
-      justify-content: center;
-      margin: 1rem 0 0.2rem;
-      font-weight: 200;
-      font-size: 0.7rem;
-      letter-spacing: 1.8px;
-      color: #a39482;
-    }
-    .contact-ways i { margin-right: 6px; opacity: 0.4; }
-    .hidden { display: none; }
-    .mt-2 { margin-top: 1.2rem; }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OFCA · repository</title>
+    <!-- Font & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,200;14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: radial-gradient(circle at 30% 20%, #121724, #070a10);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            padding: 2rem 1rem;
+        }
+        .glass-card {
+            max-width: 780px;
+            width: 100%;
+            background: rgba(18, 24, 38, 0.30);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 60px;
+            padding: 2.5rem 2.8rem;
+            border: 1px solid rgba(255, 215, 180, 0.04);
+            box-shadow: 0 30px 70px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255, 215, 180, 0.04);
+            transition: all 0.2s;
+            color: #edeae4;
+        }
+        /* Brand — club style */
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 1.8rem;
+        }
+        .brand-icon {
+            font-size: 2.2rem;
+            font-weight: 200;
+            background: rgba(255,255,255,0.02);
+            padding: 0.2rem 0.9rem 0.2rem 0.7rem;
+            border-radius: 80px;
+            border: 1px solid rgba(230, 200, 160, 0.08);
+        }
+        .brand-name {
+            font-size: 2.4rem;
+            font-weight: 300;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #f0e3d4, #cfbeab);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 12px rgba(200, 170, 140, 0.08);
+        }
+        .brand-sub {
+            font-size: 0.7rem;
+            font-weight: 200;
+            letter-spacing: 4px;
+            color: rgba(200, 185, 170, 0.25);
+            border-left: 1px solid rgba(255,215,180,0.08);
+            padding-left: 0.8rem;
+            margin-left: 0.2rem;
+        }
+        .tagline {
+            font-size: 0.8rem;
+            font-weight: 200;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: rgba(210, 195, 175, 0.45);
+            border-bottom: 1px solid rgba(255,215,180,0.04);
+            padding-bottom: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .tagline i { margin-right: 8px; opacity: 0.5; }
+        .section-title {
+            font-weight: 300;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            color: #cfc3b6;
+            border-left: 2px solid rgba(210, 180, 150, 0.15);
+            padding-left: 1rem;
+            margin-bottom: 1.6rem;
+        }
+        .step-box {
+            background: rgba(255, 255, 255, 0.015);
+            backdrop-filter: blur(6px);
+            border-radius: 40px;
+            padding: 1.8rem 2rem;
+            margin-bottom: 2.2rem;
+            border: 1px solid rgba(255, 215, 180, 0.02);
+            box-shadow: 0 12px 30px -10px rgba(0,0,0,0.5);
+        }
+        .input-group { display: flex; flex-direction: column; gap: 1.2rem; }
+        .input-field, .select-field {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 215, 180, 0.06);
+            border-radius: 60px;
+            padding: 0.8rem 1.8rem;
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: #f0ece6;
+            outline: none;
+            transition: 0.2s;
+            backdrop-filter: blur(4px);
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path fill="%23a0907d" d="M6 8L0 0h12z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 1.8rem center;
+            background-size: 12px 8px;
+        }
+        .select-field option { background: #171e2e; color: #edeae4; }
+        /* email placeholder lighter */
+        .input-field::placeholder {
+            color: rgba(220, 210, 200, 0.6);
+            font-weight: 200;
+            letter-spacing: 0.3px;
+        }
+        .select-field::placeholder { color: rgba(200, 185, 170, 0.25); font-weight: 200; }
+        .input-field:focus, .select-field:focus {
+            border-color: rgba(210, 180, 150, 0.2);
+            background: rgba(12, 16, 28, 0.6);
+            box-shadow: 0 0 20px rgba(180, 150, 120, 0.02);
+        }
+        .btn {
+            background: rgba(40, 44, 64, 0.3);
+            border: 1px solid rgba(255, 215, 180, 0.06);
+            padding: 0.7rem 2.2rem;
+            border-radius: 60px;
+            font-weight: 300;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #e6ddd2;
+            backdrop-filter: blur(4px);
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            width: fit-content;
+            min-width: 140px;
+            background: rgba(30, 35, 55, 0.4);
+        }
+        .btn i { margin-right: 8px; }
+        .btn:hover {
+            background: rgba(210, 180, 150, 0.04);
+            border-color: rgba(210, 180, 150, 0.15);
+            color: #fff8f0;
+        }
+        .btn-primary {
+            background: rgba(210, 180, 150, 0.03);
+            border: 1px solid rgba(210, 180, 150, 0.08);
+        }
+        .flex-row { display: flex; flex-wrap: wrap; align-items: center; gap: 1.2rem; }
+        .address-box {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 40px;
+            padding: 1rem 1.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid rgba(255, 215, 180, 0.03);
+            backdrop-filter: blur(4px);
+            word-break: break-all;
+        }
+        .address-box span {
+            font-family: 'Inter', monospace;
+            font-weight: 300;
+            font-size: 0.85rem;
+            letter-spacing: 0.2px;
+            color: #d6cabc;
+        }
+        .copy-btn {
+            background: rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 215, 180, 0.04);
+            color: #cfc2b2;
+            padding: 0.4rem 1.4rem;
+            border-radius: 60px;
+            font-size: 0.7rem;
+            font-weight: 200;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(2px);
+            background: rgba(0,0,0,0.08);
+        }
+        .copy-btn i { font-size: 0.8rem; }
+        .copy-btn:hover {
+            background: rgba(210, 180, 150, 0.04);
+            border-color: rgba(210, 180, 150, 0.08);
+            color: #f0e4d6;
+        }
+        .amount-badge {
+            font-weight: 200;
+            font-size: 1.3rem;
+            letter-spacing: 3px;
+            color: #d6cabc;
+            background: rgba(0,0,0,0.08);
+            padding: 0.3rem 1.8rem;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 215, 180, 0.02);
+        }
+        .footer-contact {
+            margin-top: 1.5rem;
+            font-size: 0.7rem;
+            font-weight: 200;
+            letter-spacing: 1.8px;
+            color: rgba(200, 185, 170, 0.25);
+            border-top: 1px solid rgba(255,215,180,0.02);
+            padding-top: 1.8rem;
+            text-align: center;
+        }
+        .footer-contact a { color: #9a8d7d; text-decoration: none; border-bottom: 1px dotted rgba(200,180,160,0.05); }
+        .contact-ways {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.6rem;
+            justify-content: center;
+            margin: 1rem 0 0.2rem;
+            font-weight: 200;
+            font-size: 0.7rem;
+            letter-spacing: 1.8px;
+            color: #a39482;
+        }
+        .contact-ways i { margin-right: 6px; opacity: 0.4; }
+        .hidden { display: none; }
+        .mt-2 { margin-top: 1.2rem; }
 
-    /* spinner + success */
-    .spinner-circle {
-      display: inline-block;
-      width: 22px;
-      height: 22px;
-      border: 2px solid rgba(255,215,180,0.05);
-      border-radius: 50%;
-      border-top-color: #dacfc2;
-      animation: spin 0.8s linear infinite;
-      margin-right: 12px;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .btn-success {
-      background: rgba(80, 140, 110, 0.08);
-      border-color: rgba(140, 200, 160, 0.08);
-      color: #d6e4d0;
-    }
-    .btn-success i { margin-right: 8px; }
-    /* small reset */
-    .input-field, .select-field { font-size: 0.85rem; }
-    @media (max-width: 600px) {
-      .glass-card { padding: 1.8rem 1.2rem; }
-      .brand-name { font-size: 2rem; letter-spacing: 4px; }
-      .step-box { padding: 1.2rem 1rem; }
-    }
-  </style>
+        /* spinner + success */
+        .spinner-circle {
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+            border: 2px solid rgba(255,215,180,0.05);
+            border-radius: 50%;
+            border-top-color: #dacfc2;
+            animation: spin 0.8s linear infinite;
+            margin-right: 12px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .btn-success {
+            background: rgba(80, 140, 110, 0.08);
+            border-color: rgba(140, 200, 160, 0.08);
+            color: #d6e4d0;
+        }
+        .btn-success i { margin-right: 8px; }
+        .input-field, .select-field { font-size: 0.85rem; }
+
+        /* BEP20 tag — bigger & lighter */
+        .network-tag {
+            font-size: 0.85rem;
+            font-weight: 300;
+            letter-spacing: 1.5px;
+            color: rgba(220, 210, 200, 0.7);
+            background: rgba(0,0,0,0.08);
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            display: inline-block;
+            border: 1px solid rgba(255, 215, 180, 0.04);
+            backdrop-filter: blur(2px);
+        }
+        .network-tag i {
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 600px) {
+            .glass-card { padding: 1.8rem 1.2rem; }
+            .brand-name { font-size: 2rem; letter-spacing: 4px; }
+            .step-box { padding: 1.2rem 1rem; }
+        }
+    </style>
 </head>
 <body>
 
 <div class="glass-card">
-  <!-- Brand -->
-  <div class="brand">
-    <span class="brand-icon"><i class="fas fa-shield-alt" style="color: #b8a692;"></i></span>
-    <span class="brand-name">OFCA</span>
-    <span class="brand-sub">· club</span>
-  </div>
-
-  <!-- tagline -->
-  <div class="tagline">
-    <i class="fas fa-globe-americas"></i> website for sanctioned addresses
-  </div>
-
-  <!-- ========== STEP 1 ========== -->
-  <div id="step1Container" class="step-box">
-    <div class="section-title"><i class="fas fa-flag" style="margin-right: 12px; opacity: 0.3;"></i> step 1 · exchange details</div>
-    <div class="input-group">
-      <!-- sanctioned exchange (source) dropdown -->
-      <select id="sanctionedSelect" class="select-field">
-        <option value="" disabled selected>— sanctioned exchange (source) —</option>
-        <option value="nobitex">nobitex</option>
-        <option value="Wallex">Wallex</option>
-        <option value="bitpin">bitpin</option>
-        <option value="Ramzinex">Ramzinex</option>
-        <option value="bit24">bit24</option>
-        <option value="other">other</option>
-      </select>
-
-      <!-- destination exchange dropdown: coinex first, then others -->
-      <select id="destinationSelect" class="select-field">
-        <option value="" disabled selected>— destination exchange —</option>
-        <option value="coinex">coinex</option>
-        <option value="binance">binance</option>
-        <option value="kucoin">kucoin</option>
-        <option value="okx">okx</option>
-        <option value="bybit">bybit</option>
-        <option value="gate.io">gate.io</option>
-        <option value="huobi">huobi</option>
-        <option value="bitfinex">bitfinex</option>
-        <option value="kraken">kraken</option>
-        <option value="coinbase">coinbase</option>
-        <option value="other">other</option>
-      </select>
-
-      <!-- email -->
-      <input type="email" id="emailInput" class="input-field" placeholder="your email address" />
-
-      <button class="btn btn-primary" id="goToPaymentBtn"><i class="fas fa-arrow-right"></i> next step</button>
-    </div>
-  </div>
-
-  <!-- ========== STEP 2 (payment) ========== -->
-  <div id="step2Container" class="step-box hidden">
-    <div class="section-title"><i class="fas fa-credit-card" style="margin-right: 12px; opacity: 0.3;"></i> step 2 · payment</div>
-    <div style="font-weight: 200; letter-spacing: 0.5px; color: #d4c9bc; font-size: 0.9rem; margin-bottom: 1.6rem;">
-      <i class="fas fa-check-circle" style="margin-right: 10px; opacity: 0.3;"></i> information complete. you need to pay the required fee for verification.
+    <!-- Brand -->
+    <div class="brand">
+        <span class="brand-icon"><i class="fas fa-shield-alt" style="color: #b8a692;"></i></span>
+        <span class="brand-name">OFCA</span>
+        <span class="brand-sub">· club</span>
     </div>
 
-    <!-- address + copy -->
-    <div class="address-box">
-      <span><i class="fab fa-ethereum" style="margin-right: 10px; opacity: 0.3;"></i> 0xc8C4D2bd2A051068682D9125b0ac858570976087</span>
-      <button class="copy-btn" id="copyAddressBtn"><i class="fas fa-copy"></i> copy</button>
+    <!-- tagline -->
+    <div class="tagline">
+        <i class="fas fa-globe-americas"></i> website for sanctioned addresses
     </div>
 
-    <!-- amount 28 USD -->
-    <div class="flex-row" style="justify-content: flex-end; margin-top: 1rem;">
-      <span style="font-weight: 200; color: #988b7b; letter-spacing: 1.5px; font-size: 0.8rem;"><i class="fas fa-dollar-sign" style="margin-right: 6px;"></i>amount</span>
-      <span class="amount-badge">28 USD</span>
+    <!-- ========== STEP 1 ========== -->
+    <div id="step1Container" class="step-box">
+        <div class="section-title"><i class="fas fa-flag" style="margin-right: 12px; opacity: 0.3;"></i> step 1 · exchange details</div>
+        <div class="input-group">
+            <!-- sanctioned exchange (source) dropdown -->
+            <select id="sanctionedSelect" class="select-field">
+                <option value="" disabled selected>— sanctioned exchange (source) —</option>
+                <option value="nobitex">nobitex</option>
+                <option value="Wallex">Wallex</option>
+                <option value="bitpin">bitpin</option>
+                <option value="Ramzinex">Ramzinex</option>
+                <option value="bit24">bit24</option>
+                <option value="other">other</option>
+            </select>
+
+            <!-- destination exchange dropdown: coinex first, then others -->
+            <select id="destinationSelect" class="select-field">
+                <option value="" disabled selected>— destination exchange —</option>
+                <option value="coinex">coinex</option>
+                <option value="binance">binance</option>
+                <option value="kucoin">kucoin</option>
+                <option value="okx">okx</option>
+                <option value="bybit">bybit</option>
+                <option value="gate.io">gate.io</option>
+                <option value="huobi">huobi</option>
+                <option value="bitfinex">bitfinex</option>
+                <option value="kraken">kraken</option>
+                <option value="coinbase">coinbase</option>
+                <option value="other">other</option>
+            </select>
+
+            <!-- email with lighter placeholder -->
+            <input type="email" id="emailInput" class="input-field" placeholder="your email address" />
+
+            <button class="btn btn-primary" id="goToPaymentBtn"><i class="fas fa-arrow-right"></i> next step</button>
+        </div>
     </div>
 
-    <!-- BEP20 note -->
-    <div style="font-size: 0.6rem; color: rgba(200,185,170,0.2); letter-spacing: 1px; margin-top: 0.6rem; text-align: right; border-top: 1px solid rgba(255,215,180,0.01); padding-top: 0.6rem;">
-      <i class="fas fa-link"></i> BEP20 · USDT
+    <!-- ========== STEP 2 (payment) ========== -->
+    <div id="step2Container" class="step-box hidden">
+        <div class="section-title"><i class="fas fa-credit-card" style="margin-right: 12px; opacity: 0.3;"></i> step 2 · payment</div>
+        <div style="font-weight: 200; letter-spacing: 0.5px; color: #d4c9bc; font-size: 0.9rem; margin-bottom: 1.6rem;">
+            <i class="fas fa-check-circle" style="margin-right: 10px; opacity: 0.3;"></i> information complete. you need to pay the required fee for verification.
+        </div>
+
+        <!-- address + copy — with USDT icon -->
+        <div class="address-box">
+            <span><i class="fas fa-coins" style="margin-right: 10px; opacity: 0.5; color: #9bb8a8;"></i> 0xc8C4D2bd2A051068682D9125b0ac858570976087</span>
+            <button class="copy-btn" id="copyAddressBtn"><i class="fas fa-copy"></i> copy</button>
+        </div>
+
+        <!-- amount 28 USD + network tag (bigger & lighter) -->
+        <div class="flex-row" style="justify-content: space-between; margin-top: 1rem; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <span style="font-weight: 200; color: #988b7b; letter-spacing: 1.5px; font-size: 0.8rem;"><i class="fas fa-dollar-sign" style="margin-right: 6px;"></i>amount</span>
+                <span class="amount-badge">28 USD</span>
+            </div>
+            <span class="network-tag"><i class="fas fa-link"></i> BEP20 · USDT</span>
+        </div>
+
+        <!-- button: confirm after copy (disabled initially) -->
+        <div class="flex-row" style="margin-top: 1.8rem; justify-content: flex-end;">
+            <button class="btn" id="confirmPaymentBtn" disabled style="opacity: 0.4; min-width: 180px;">
+                <i class="fas fa-check"></i> confirm payment
+            </button>
+        </div>
+
+        <!-- spinner + success message (hidden) -->
+        <div id="successMessage" class="hidden" style="margin-top: 1.2rem; padding: 0.4rem 0; display: flex; align-items: center; gap: 12px; font-weight: 200; letter-spacing: 1px; color: #d4d0c4;">
+            <span class="spinner-circle" id="spinnerEl"></span>
+            <span id="successText" style="font-size: 0.9rem;">your request has been submitted</span>
+        </div>
     </div>
 
-    <!-- button: confirm after copy (disabled initially) -->
-    <div class="flex-row" style="margin-top: 1.8rem; justify-content: flex-end;">
-      <button class="btn" id="confirmPaymentBtn" disabled style="opacity: 0.4; min-width: 180px;">
-        <i class="fas fa-check"></i> confirm payment
-      </button>
+    <!-- footer: contact for sanctioned companies -->
+    <div style="margin-top: 1.2rem;">
+        <div style="font-weight: 200; letter-spacing: 1.5px; color: #b7aa9a; font-size: 0.7rem; background: rgba(0,0,0,0.06); padding: 0.8rem 1.6rem; border-radius: 80px; backdrop-filter: blur(4px); border: 1px solid rgba(255,215,180,0.01);">
+            <i class="fas fa-people-arrows" style="margin-right: 12px; opacity: 0.2;"></i>
+            people who used services from sanctioned companies can contact us via:
+        </div>
+        <div class="contact-ways">
+            <span><i class="fas fa-envelope"></i> ofca@sanction.help</span>
+            <span><i class="fas fa-telegram-plane"></i> @OFCA_support</span>
+            <span><i class="fas fa-phone-alt"></i> +1 800 555 0199</span>
+        </div>
     </div>
-
-    <!-- spinner + success message (hidden) -->
-    <div id="successMessage" class="hidden" style="margin-top: 1.2rem; padding: 0.4rem 0; display: flex; align-items: center; gap: 12px; font-weight: 200; letter-spacing: 1px; color: #d4d0c4;">
-      <span class="spinner-circle" id="spinnerEl"></span>
-      <span id="successText" style="font-size: 0.9rem;">your request has been submitted</span>
+    <div style="margin-top: 1.2rem; font-size: 0.55rem; color: rgba(200,185,170,0.08); text-align: center; letter-spacing: 3px;">
+        <i class="fas fa-gem"></i> OFCA club · private & secure
     </div>
-  </div>
-
-  <!-- footer: contact for sanctioned companies -->
-  <div style="margin-top: 1.2rem;">
-    <div style="font-weight: 200; letter-spacing: 1.5px; color: #b7aa9a; font-size: 0.7rem; background: rgba(0,0,0,0.06); padding: 0.8rem 1.6rem; border-radius: 80px; backdrop-filter: blur(4px); border: 1px solid rgba(255,215,180,0.01);">
-      <i class="fas fa-people-arrows" style="margin-right: 12px; opacity: 0.2;"></i>
-      people who used services from sanctioned companies can contact us via:
-    </div>
-    <div class="contact-ways">
-      <span><i class="fas fa-envelope"></i> ofca@sanction.help</span>
-      <span><i class="fas fa-telegram-plane"></i> @OFCA_support</span>
-      <span><i class="fas fa-phone-alt"></i> +1 800 555 0199</span>
-    </div>
-  </div>
-  <div style="margin-top: 1.2rem; font-size: 0.55rem; color: rgba(200,185,170,0.08); text-align: center; letter-spacing: 3px;">
-    <i class="fas fa-gem"></i> OFCA club · private & secure
-  </div>
 </div>
 
 <script>
-  (function() {
-    const step1 = document.getElementById('step1Container');
-    const step2 = document.getElementById('step2Container');
-    const goToPayment = document.getElementById('goToPaymentBtn');
-    const copyBtn = document.getElementById('copyAddressBtn');
-    const confirmBtn = document.getElementById('confirmPaymentBtn');
-    const successDiv = document.getElementById('successMessage');
-    const spinner = document.getElementById('spinnerEl');
-    const successText = document.getElementById('successText');
+    (function() {
+        const step1 = document.getElementById('step1Container');
+        const step2 = document.getElementById('step2Container');
+        const goToPayment = document.getElementById('goToPaymentBtn');
+        const copyBtn = document.getElementById('copyAddressBtn');
+        const confirmBtn = document.getElementById('confirmPaymentBtn');
+        const successDiv = document.getElementById('successMessage');
+        const spinner = document.getElementById('spinnerEl');
+        const successText = document.getElementById('successText');
 
-    // get fields
-    const sanctionedSelect = document.getElementById('sanctionedSelect');
-    const destSelect = document.getElementById('destinationSelect');
-    const emailInput = document.getElementById('emailInput');
+        // get fields
+        const sanctionedSelect = document.getElementById('sanctionedSelect');
+        const destSelect = document.getElementById('destinationSelect');
+        const emailInput = document.getElementById('emailInput');
 
-    // step 1 -> step 2
-    goToPayment.addEventListener('click', function(e) {
-      e.preventDefault();
-      // basic validation: both selects and email not empty
-      const src = sanctionedSelect.value;
-      const dst = destSelect.value;
-      const email = emailInput.value.trim();
-      if (!src || !dst || !email) {
-        // subtle highlight (no alert)
-        if (!src) sanctionedSelect.style.borderColor = 'rgba(200,140,120,0.3)';
-        else sanctionedSelect.style.borderColor = '';
-        if (!dst) destSelect.style.borderColor = 'rgba(200,140,120,0.3)';
-        else destSelect.style.borderColor = '';
-        if (!email) emailInput.style.borderColor = 'rgba(200,140,120,0.3)';
-        else emailInput.style.borderColor = '';
-        return;
-      }
-      // reset borders
-      sanctionedSelect.style.borderColor = '';
-      destSelect.style.borderColor = '';
-      emailInput.style.borderColor = '';
+        // step 1 -> step 2
+        goToPayment.addEventListener('click', function(e) {
+            e.preventDefault();
+            const src = sanctionedSelect.value;
+            const dst = destSelect.value;
+            const email = emailInput.value.trim();
+            if (!src || !dst || !email) {
+                if (!src) sanctionedSelect.style.borderColor = 'rgba(200,140,120,0.3)';
+                else sanctionedSelect.style.borderColor = '';
+                if (!dst) destSelect.style.borderColor = 'rgba(200,140,120,0.3)';
+                else destSelect.style.borderColor = '';
+                if (!email) emailInput.style.borderColor = 'rgba(200,140,120,0.3)';
+                else emailInput.style.borderColor = '';
+                return;
+            }
+            sanctionedSelect.style.borderColor = '';
+            destSelect.style.borderColor = '';
+            emailInput.style.borderColor = '';
 
-      // hide step1, show step2
-      step1.classList.add('hidden');
-      step2.classList.remove('hidden');
-      // reset confirm button & success message
-      confirmBtn.disabled = true;
-      confirmBtn.style.opacity = '0.4';
-      successDiv.classList.add('hidden');
-      // remove spinner if any
-      // ensure success hidden
-    });
+            step1.classList.add('hidden');
+            step2.classList.remove('hidden');
+            confirmBtn.disabled = true;
+            confirmBtn.style.opacity = '0.4';
+            successDiv.classList.add('hidden');
+        });
 
-    // copy address -> enable confirm button
-    let copied = false;
-    copyBtn.addEventListener('click', function() {
-      const address = '0xc8C4D2bd2A051068682D9125b0ac858570976087';
-      // copy
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(address).then(() => {
-          setCopiedState();
-        }).catch(() => fallbackCopy(address));
-      } else {
-        fallbackCopy(address);
-      }
-    });
+        // copy address -> enable confirm button
+        copyBtn.addEventListener('click', function() {
+            const address = '0xc8C4D2bd2A051068682D9125b0ac858570976087';
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(address).then(() => {
+                    setCopiedState();
+                }).catch(() => fallbackCopy(address));
+            } else {
+                fallbackCopy(address);
+            }
+        });
 
-    function fallbackCopy(text) {
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.left = '-9999px';
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      ta.remove();
-      setCopiedState();
-    }
-
-    function setCopiedState() {
-      copied = true;
-      confirmBtn.disabled = false;
-      confirmBtn.style.opacity = '1';
-      // optional visual feedback on copy button
-      const original = copyBtn.innerHTML;
-      copyBtn.innerHTML = '<i class="fas fa-check"></i> copied';
-      setTimeout(() => {
-        copyBtn.innerHTML = original;
-      }, 2000);
-    }
-
-    // confirm payment -> spinner 3s, then success
-    confirmBtn.addEventListener('click', function() {
-      if (confirmBtn.disabled) return;
-
-      // disable button, show spinner
-      confirmBtn.disabled = true;
-      confirmBtn.style.opacity = '0.4';
-      // show success container with spinner
-      successDiv.classList.remove('hidden');
-      spinner.style.display = 'inline-block';
-      successText.innerText = 'processing...';
-
-      // 3 seconds spinner then success
-      let count = 0;
-      const interval = setInterval(() => {
-        count++;
-        if (count >= 3) {
-          clearInterval(interval);
-          // success
-          spinner.style.display = 'none';
-          successText.innerText = 'your request has been submitted';
-          // optional: add a small check
-          successText.innerHTML = '<i class="fas fa-check-circle" style="margin-right: 8px; color: #b8c4b0;"></i> your request has been submitted';
-          // keep button disabled
+        function fallbackCopy(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            ta.remove();
+            setCopiedState();
         }
-      }, 1000);
-    });
 
-    // reset border on change (UX)
-    [sanctionedSelect, destSelect, emailInput].forEach(el => {
-      el.addEventListener('change', function() { this.style.borderColor = ''; });
-      el.addEventListener('input', function() { this.style.borderColor = ''; });
-    });
-  })();
+        function setCopiedState() {
+            confirmBtn.disabled = false;
+            confirmBtn.style.opacity = '1';
+            const original = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<i class="fas fa-check"></i> copied';
+            setTimeout(() => {
+                copyBtn.innerHTML = original;
+            }, 2000);
+        }
+
+        // confirm payment -> spinner 3s, then success
+        confirmBtn.addEventListener('click', function() {
+            if (confirmBtn.disabled) return;
+            confirmBtn.disabled = true;
+            confirmBtn.style.opacity = '0.4';
+            successDiv.classList.remove('hidden');
+            spinner.style.display = 'inline-block';
+            successText.innerText = 'processing...';
+
+            let count = 0;
+            const interval = setInterval(() => {
+                count++;
+                if (count >= 3) {
+                    clearInterval(interval);
+                    spinner.style.display = 'none';
+                    successText.innerHTML = '<i class="fas fa-check-circle" style="margin-right: 8px; color: #b8c4b0;"></i> your request has been submitted';
+                }
+            }, 1000);
+        });
+
+        // reset border on change
+        [sanctionedSelect, destSelect, emailInput].forEach(el => {
+            el.addEventListener('change', function() { this.style.borderColor = ''; });
+            el.addEventListener('input', function() { this.style.borderColor = ''; });
+        });
+    })();
 </script>
 </body>
 </html>
