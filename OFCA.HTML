@@ -129,7 +129,6 @@
             background: rgba(12, 16, 28, 0.6);
             box-shadow: 0 0 20px rgba(180, 150, 120, 0.02);
         }
-        /* date input specific – placeholder trick */
         input[type="date"] {
             color: #f2ede8;
             font-weight: 400;
@@ -174,48 +173,6 @@
             border: 1px solid rgba(210, 180, 150, 0.08);
         }
         .flex-row { display: flex; flex-wrap: wrap; align-items: center; gap: 1.2rem; }
-        .address-box {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 40px;
-            padding: 1rem 1.8rem;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            border: 1px solid rgba(255, 215, 180, 0.03);
-            backdrop-filter: blur(4px);
-            word-break: break-all;
-        }
-        .address-box span {
-            font-family: 'Inter', monospace;
-            font-weight: 400;
-            font-size: 0.8rem;
-            letter-spacing: 0.2px;
-            color: #d6cabc;
-        }
-        .copy-btn {
-            background: rgba(0,0,0,0.1);
-            border: 1px solid rgba(255, 215, 180, 0.04);
-            color: #cfc2b2;
-            padding: 0.35rem 1.4rem;
-            border-radius: 60px;
-            font-size: 0.65rem;
-            font-weight: 400;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: 0.15s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(2px);
-            background: rgba(0,0,0,0.08);
-        }
-        .copy-btn i { font-size: 0.75rem; }
-        .copy-btn:hover {
-            background: rgba(210, 180, 150, 0.04);
-            border-color: rgba(210, 180, 150, 0.08);
-            color: #f0e4d6;
-        }
         .amount-badge {
             font-weight: 400;
             font-size: 1.2rem;
@@ -278,7 +235,6 @@
             grid-template-columns: 1fr 1fr;
             gap: 1.2rem;
         }
-        /* date label hint */
         .date-hint {
             position: relative;
         }
@@ -295,11 +251,80 @@
         .date-hint input[type="date"] {
             padding-left: 3rem;
         }
+
+        /* ===== NEW ADDRESS BOX ===== */
+        .address-wrapper {
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 28px;
+            padding: 1.2rem 1.8rem;
+            border: 1px solid rgba(255, 215, 180, 0.03);
+            backdrop-filter: blur(4px);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .address-display {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-family: 'Inter', monospace;
+            font-weight: 400;
+            font-size: 0.8rem;
+            letter-spacing: 0.2px;
+            color: #d6cabc;
+            word-break: break-all;
+            padding: 0.2rem 0;
+        }
+        .address-display i {
+            font-size: 1rem;
+            opacity: 0.5;
+            color: #9bb8a8;
+            flex-shrink: 0;
+        }
+        .address-display span {
+            background: rgba(0,0,0,0.08);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            border: 1px solid rgba(255,215,180,0.02);
+            flex: 1;
+        }
+        .copy-btn-wrap {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .copy-btn-elegant {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 215, 180, 0.06);
+            color: #cfc2b2;
+            padding: 0.4rem 2rem;
+            border-radius: 60px;
+            font-size: 0.65rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(2px);
+            background: rgba(0,0,0,0.06);
+        }
+        .copy-btn-elegant i {
+            font-size: 0.75rem;
+            opacity: 0.6;
+        }
+        .copy-btn-elegant:hover {
+            background: rgba(210, 180, 150, 0.04);
+            border-color: rgba(210, 180, 150, 0.12);
+            color: #f0e4d6;
+        }
+
         @media (max-width: 600px) {
             .glass-card { padding: 1.8rem 1.2rem; }
             .brand-name { font-size: 2rem; letter-spacing: 4px; }
             .step-box { padding: 1.2rem 1rem; }
             .row-duo { grid-template-columns: 1fr; }
+            .address-display { flex-wrap: wrap; }
         }
     </style>
 </head>
@@ -322,7 +347,6 @@
     <div id="step1Container" class="step-box">
         <div class="section-title"><i class="fas fa-flag" style="margin-right: 12px; opacity: 0.3;"></i> step 1 · exchange details</div>
         <div class="input-group">
-            <!-- sanctioned exchange (source) -->
             <select id="sanctionedSelect" class="select-field">
                 <option value="" disabled selected>— sanctioned exchange (source) —</option>
                 <option value="nobitex">nobitex</option>
@@ -333,7 +357,6 @@
                 <option value="other">other</option>
             </select>
 
-            <!-- destination exchange -->
             <select id="destinationSelect" class="select-field">
                 <option value="" disabled selected>— destination exchange —</option>
                 <option value="coinex">coinex</option>
@@ -349,7 +372,6 @@
                 <option value="other">other</option>
             </select>
 
-            <!-- amount & date with hint -->
             <div class="row-duo">
                 <input type="text" id="amountInput" class="input-field" placeholder="amount sent (USD)" />
                 <div class="date-hint">
@@ -357,7 +379,6 @@
                 </div>
             </div>
 
-            <!-- email -->
             <input type="email" id="emailInput" class="input-field" placeholder="your email address" />
 
             <button class="btn btn-primary" id="goToPaymentBtn"><i class="fas fa-arrow-right"></i> next step</button>
@@ -371,12 +392,18 @@
             <i class="fas fa-check-circle" style="margin-right: 10px; opacity: 0.3;"></i> information complete. you need to pay the required fee for verification.
         </div>
 
-        <div class="address-box">
-            <span><i class="fas fa-coins" style="margin-right: 10px; opacity: 0.6; color: #9bb8a8;"></i> 0xc8C4D2bd2A051068682D9125b0ac858570976087</span>
-            <button class="copy-btn" id="copyAddressBtn"><i class="fas fa-copy"></i> copy</button>
+        <!-- NEW ADDRESS BOX with elegant copy -->
+        <div class="address-wrapper">
+            <div class="address-display">
+                <i class="fas fa-coins"></i>
+                <span>0xc8C4D2bd2A051068682D9125b0ac858570976087</span>
+            </div>
+            <div class="copy-btn-wrap">
+                <button class="copy-btn-elegant" id="copyAddressBtn"><i class="fas fa-copy"></i> copy address</button>
+            </div>
         </div>
 
-        <div class="flex-row" style="justify-content: space-between; margin-top: 1rem; align-items: center;">
+        <div class="flex-row" style="justify-content: space-between; margin-top: 1.5rem; align-items: center;">
             <div style="display: flex; align-items: center; gap: 1rem;">
                 <span style="font-weight: 400; color: #988b7b; letter-spacing: 1.5px; font-size: 0.75rem;"><i class="fas fa-dollar-sign" style="margin-right: 6px;"></i>amount</span>
                 <span class="amount-badge">28 USD</span>
