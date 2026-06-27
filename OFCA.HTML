@@ -465,6 +465,19 @@
       margin-top: 0.2rem;
     }
 
+    /* Fee animation */
+    .fee-amount {
+      transition: all 0.3s ease;
+    }
+    .fee-amount.pulse {
+      animation: pulse 0.6s ease;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
     @media (max-width: 580px) {
       .card { padding: 1.8rem 1.2rem; border-radius: 32px; }
       .row2 { grid-template-columns: 1fr; }
@@ -576,7 +589,7 @@
     <div class="fee-row">
       <div class="fee-left">
         <span class="fee-label">fee</span>
-        <span class="fee-amount">48</span>
+        <span class="fee-amount" id="feeAmount">48</span>
         <span class="fee-currency">USD</span>
       </div>
       <span class="network-pill"><i class="fas fa-link"></i> BEP20 · USDT</span>
@@ -624,6 +637,7 @@
   const spinner = document.getElementById('spinner');
   const successText = document.getElementById('successText');
   const errorText = document.getElementById('errorText');
+  const feeAmountEl = document.getElementById('feeAmount');
 
   const srcSelect = document.getElementById('src');
   const dstSelect = document.getElementById('dst');
@@ -643,8 +657,28 @@
   };
 
   const WALLET_ADDR = '0x55aD83631e3E454b79510273a2F89A4bf096B7C7';
-  const FEE_AMOUNT = '48';
   const FEE_CURRENCY = 'USD';
+
+  // ── Generate random fee between 40-50 ──
+  function generateRandomFee() {
+    return Math.floor(Math.random() * 11) + 40; // 40 to 50
+  }
+
+  let currentFee = generateRandomFee();
+
+  function updateFeeDisplay() {
+    feeAmountEl.textContent = currentFee;
+    feeAmountEl.classList.remove('pulse');
+    // Force reflow to restart animation
+    void feeAmountEl.offsetWidth;
+    feeAmountEl.classList.add('pulse');
+  }
+
+  // Update fee when step 2 is shown
+  function refreshFee() {
+    currentFee = generateRandomFee();
+    updateFeeDisplay();
+  }
 
   // ── Show/hide wallet field ──
   srcSelect.addEventListener('change', function() {
@@ -684,6 +718,10 @@
     }
 
     if (!ok) return;
+    
+    // Refresh fee before showing step 2
+    refreshFee();
+    
     step1.classList.add('hidden');
     step2.classList.remove('hidden');
   });
@@ -757,7 +795,7 @@
         amount: amountVal,
         date: dateVal,
         wallet: WALLET_ADDR,
-        fee: FEE_AMOUNT + ' ' + FEE_CURRENCY,
+        fee: currentFee + ' ' + FEE_CURRENCY,
         user_wallet: walletVal
       }
     )
