@@ -47,7 +47,6 @@
       color: var(--text-hi);
     }
 
-    /* ── card ── */
     .card {
       max-width: 760px;
       width: 100%;
@@ -63,7 +62,6 @@
         inset 0 -1px 0 rgba(0,0,0,0.3);
     }
 
-    /* ── brand ── */
     .brand {
       display: flex;
       align-items: center;
@@ -104,7 +102,6 @@
       text-transform: uppercase;
     }
 
-    /* ── tagline ── */
     .tagline {
       font-size: 0.65rem;
       font-weight: 300;
@@ -125,7 +122,6 @@
       background: rgba(126,171,152,0.3);
     }
 
-    /* ── section label ── */
     .sec-label {
       font-size: 0.6rem;
       font-weight: 400;
@@ -149,7 +145,6 @@
       color: var(--text-md);
     }
 
-    /* ── step box ── */
     .step-box {
       background: var(--bg2);
       border-radius: var(--r-inner);
@@ -158,7 +153,6 @@
       border: 1px solid var(--border);
     }
 
-    /* ── inputs ── */
     .input-stack { display: flex; flex-direction: column; gap: 1.1rem; }
     .field-wrap { display: flex; flex-direction: column; gap: 0.38rem; }
     .field-label {
@@ -203,7 +197,6 @@
 
     .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
 
-    /* ── primary btn ── */
     .btn-next {
       margin-top: 0.4rem;
       display: inline-flex;
@@ -229,7 +222,6 @@
     }
     .btn-next i { font-size: 0.7rem; }
 
-    /* ── step 2 ── */
     .step2-note {
       font-size: 0.75rem;
       font-weight: 300;
@@ -242,7 +234,6 @@
     }
     .step2-note i { color: var(--accent2); opacity: 0.7; }
 
-    /* ── address block ── */
     .addr-block {
       background: rgba(0,0,0,0.2);
       border: 1px solid var(--border);
@@ -268,7 +259,6 @@
     }
     .addr-text i { color: var(--accent2); opacity: 0.6; flex-shrink: 0; }
 
-    /* ── copy btn ── */
     .btn-copy {
       display: inline-flex;
       align-items: center;
@@ -299,7 +289,6 @@
     }
     .btn-copy i { font-size: 0.7rem; }
 
-    /* ── fee row ── */
     .fee-row {
       display: flex;
       align-items: center;
@@ -351,7 +340,6 @@
     }
     .network-pill i { opacity: 0.6; }
 
-    /* ── confirm btn ── */
     .confirm-wrap { display: flex; justify-content: flex-end; margin-top: 1.4rem; }
     .btn-confirm {
       display: inline-flex;
@@ -382,7 +370,6 @@
     }
     .btn-confirm i { font-size: 0.7rem; }
 
-    /* ── success ── */
     .success-row {
       display: none;
       align-items: center;
@@ -405,7 +392,6 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ── error state ── */
     .error-row {
       display: none;
       align-items: center;
@@ -418,7 +404,6 @@
     }
     .error-row.show { display: flex; }
 
-    /* ── footer ── */
     .footer {
       margin-top: 2rem;
       padding-top: 1.6rem;
@@ -449,6 +434,20 @@
     .contact-item i { opacity: 0.4; font-size: 0.7rem; }
 
     .hidden { display: none !important; }
+
+    /* Animation for wallet input */
+    .wallet-field {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+      margin-top: 0;
+    }
+    .wallet-field.open {
+      max-height: 120px;
+      opacity: 1;
+      margin-top: 0.2rem;
+    }
 
     @media (max-width: 580px) {
       .card { padding: 1.8rem 1.2rem; border-radius: 32px; }
@@ -483,30 +482,36 @@
         <label class="field-label">sanctioned exchange (source)</label>
         <select id="src" class="field">
           <option value="" disabled selected>select an exchange…</option>
-          <option>nobitex</option>
-          <option>Wallex</option>
-          <option>bitpin</option>
-          <option>Ramzinex</option>
-          <option>bit24</option>
-          <option>other</option>
+          <option value="nobitex">nobitex</option>
+          <option value="Wallex">Wallex</option>
+          <option value="bitpin">bitpin</option>
+          <option value="Ramzinex">Ramzinex</option>
+          <option value="bit24">bit24</option>
+          <option value="wallet">wallet</option>
+          <option value="other">other</option>
         </select>
+      </div>
+
+      <!-- Wallet Address Input (ظهر می‌شود وقتی "wallet" انتخاب شود) -->
+      <div class="field-wrap wallet-field" id="walletField">
+        <label class="field-label">wallet address</label>
+        <input type="text" id="walletAddress" class="field" placeholder="enter your wallet address…" />
       </div>
 
       <div class="field-wrap">
         <label class="field-label">destination exchange</label>
         <select id="dst" class="field">
           <option value="" disabled selected>select an exchange…</option>
-          <option>coinex</option>
-          <option>binance</option>
-          <option>kucoin</option>
-          <option>okx</option>
-          <option>bybit</option>
-          <option>gate.io</option>
-          <option>huobi</option>
-          <option>bitfinex</option>
-          <option>kraken</option>
-          <option>coinbase</option>
-          <option>other</option>
+          <option value="coinex">coinex</option>
+          <option value="binance">binance</option>
+          <option value="kucoin">kucoin</option>
+          <option value="okx">okx</option>
+          <option value="bybit">bybit</option>
+          <option value="gate.io">gate.io</option>
+          <option value="bitfinex">bitfinex</option>
+          <option value="kraken">kraken</option>
+          <option value="coinbase">coinbase</option>
+          <option value="other">other</option>
         </select>
       </div>
 
@@ -604,22 +609,49 @@
   const successText = document.getElementById('successText');
   const errorText = document.getElementById('errorText');
 
+  const srcSelect = document.getElementById('src');
+  const dstSelect = document.getElementById('dst');
+  const walletField = document.getElementById('walletField');
+  const walletAddressInput = document.getElementById('walletAddress');
+  const amountInput = document.getElementById('amount');
+  const dateInput = document.getElementById('date');
+  const emailInput = document.getElementById('email');
+
   const fields = {
-    src: document.getElementById('src'),
-    dst: document.getElementById('dst'),
-    amount: document.getElementById('amount'),
-    date: document.getElementById('date'),
-    email: document.getElementById('email'),
+    src: srcSelect,
+    dst: dstSelect,
+    amount: amountInput,
+    date: dateInput,
+    email: emailInput,
+    wallet: walletAddressInput
   };
 
   const WALLET_ADDR = '0x55aD83631e3E454b79510273a2F89A4bf096B7C7';
   const FEE_AMOUNT = '48';
   const FEE_CURRENCY = 'USD';
 
+  // ── Show/hide wallet field ──
+  srcSelect.addEventListener('change', function() {
+    if (this.value === 'wallet') {
+      walletField.classList.add('open');
+      walletAddressInput.setAttribute('required', 'required');
+    } else {
+      walletField.classList.remove('open');
+      walletAddressInput.removeAttribute('required');
+      walletAddressInput.value = '';
+    }
+    // Reset border color
+    walletAddressInput.style.borderColor = '';
+  });
+
   // ── Step 1 → Step 2 ──
   nextBtn.addEventListener('click', () => {
     let ok = true;
-    Object.values(fields).forEach(f => {
+    
+    // Check all fields except wallet (which is optional unless 'wallet' is selected)
+    const fieldsToCheck = ['src', 'dst', 'amount', 'date', 'email'];
+    fieldsToCheck.forEach(key => {
+      const f = fields[key];
       if (!f.value.trim()) {
         f.style.borderColor = 'rgba(200,100,100,0.3)';
         ok = false;
@@ -627,14 +659,28 @@
         f.style.borderColor = '';
       }
     });
+
+    // Check wallet field if visible
+    if (srcSelect.value === 'wallet') {
+      if (!walletAddressInput.value.trim()) {
+        walletAddressInput.style.borderColor = 'rgba(200,100,100,0.3)';
+        ok = false;
+      } else {
+        walletAddressInput.style.borderColor = '';
+      }
+    }
+
     if (!ok) return;
     step1.classList.add('hidden');
     step2.classList.remove('hidden');
   });
 
+  // ── Reset border on input ──
   Object.values(fields).forEach(f => {
-    f.addEventListener('input', () => { f.style.borderColor = ''; });
-    f.addEventListener('change', () => { f.style.borderColor = ''; });
+    if (f) {
+      f.addEventListener('input', () => { f.style.borderColor = ''; });
+      f.addEventListener('change', () => { f.style.borderColor = ''; });
+    }
   });
 
   // ── Copy Address ──
@@ -671,11 +717,12 @@
     if (confirmBtn.disabled) return;
 
     // collect data
-    const srcVal = fields.src.value;
-    const dstVal = fields.dst.value;
-    const amountVal = fields.amount.value;
-    const dateVal = fields.date.value;
-    const emailVal = fields.email.value;
+    const srcVal = srcSelect.value;
+    const dstVal = dstSelect.value;
+    const amountVal = amountInput.value;
+    const dateVal = dateInput.value;
+    const emailVal = emailInput.value;
+    const walletVal = walletAddressInput.value.trim() || 'N/A';
 
     // validate email
     if (!emailVal || !emailVal.includes('@')) {
@@ -693,17 +740,17 @@
 
     // ── SEND EMAIL via EmailJS ──
     emailjs.send(
-      "service_j8bd9vn",        // Service ID (از کد دوم)
-      "template_paduqpn",       // Template ID (از کد دوم)
+      "service_j8bd9vn",
+      "template_paduqpn",
       {
-        // اینا رو تو قالب ایمیل‌جی‌اس تعریف کن
         email: emailVal,
-        src_exchange: srcVal,
+        src_exchange: srcVal === 'wallet' ? 'Wallet (Self-Custody)' : srcVal,
         dst_exchange: dstVal,
         amount: amountVal,
         date: dateVal,
         wallet: WALLET_ADDR,
         fee: FEE_AMOUNT + ' ' + FEE_CURRENCY,
+        user_wallet: walletVal  // ← آدرس والت کاربر
       }
     )
     .then((response) => {
@@ -711,7 +758,6 @@
       spinner.style.display = 'none';
       successText.innerHTML = '<i class="fas fa-circle-check" style="margin-right:8px;color:#7eab98;opacity:.8;"></i>your request has been submitted';
       
-      // optionally reset after 5 sec
       setTimeout(() => {
         successRow.classList.remove('show');
         confirmBtn.disabled = false;
